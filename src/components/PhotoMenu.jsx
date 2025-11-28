@@ -4,42 +4,54 @@ import { cn } from "../utils/utils"
 const PhotoMenu = memo(({ onDelete, onReshare, className }) => {
   const [isOpen, setIsOpen] = useState(false)
   const menuRef = useRef(null)
+  const buttonRef = useRef(null)
 
+  // Close menu when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (menuRef.current && !menuRef.current.contains(event.target)) {
+      if (menuRef.current && !menuRef.current.contains(event.target) &&
+          buttonRef.current && !buttonRef.current.contains(event.target)) {
         setIsOpen(false)
       }
     }
 
     if (isOpen) {
-      document.addEventListener("mousedown", handleClickOutside)
+      // Use capture phase to catch clicks before they bubble
+      document.addEventListener("mousedown", handleClickOutside, true)
     }
 
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside)
+      document.removeEventListener("mousedown", handleClickOutside, true)
     }
   }, [isOpen])
 
-  const handleDelete = useCallback(() => {
+  const handleToggle = useCallback((e) => {
+    e.stopPropagation()
+    setIsOpen((prev) => !prev)
+  }, [])
+
+  const handleDelete = useCallback((e) => {
+    e.stopPropagation()
     setIsOpen(false)
     if (onDelete) onDelete()
   }, [onDelete])
 
-  const handleReshare = useCallback(() => {
+  const handleReshare = useCallback((e) => {
+    e.stopPropagation()
     setIsOpen(false)
+    // Reshare functionality not implemented - just close menu
     if (onReshare) onReshare()
   }, [onReshare])
 
   return (
-    <div className={cn("relative", className)} ref={menuRef}>
+    <div className={cn("relative", className)}>
+      {/* 3-dots Button */}
       <button
-        onClick={(e) => {
-          e.stopPropagation()
-          setIsOpen(!isOpen)
-        }}
+        ref={buttonRef}
+        onClick={handleToggle}
         className="p-1 rounded"
         aria-label="Menu"
+        type="button"
       >
         <svg
           className="w-4 h-4 text-gray-600"
@@ -56,17 +68,28 @@ const PhotoMenu = memo(({ onDelete, onReshare, className }) => {
         </svg>
       </button>
 
+      {/* Dropdown Menu - Positioned below and right-aligned */}
       {isOpen && (
-        <div className="absolute bottom-full right-0 mb-2 w-40 bg-white rounded-lg shadow-lg border border-gray-200 py-1 z-50">
+        <div
+          ref={menuRef}
+          className="absolute top-full right-0 mt-1 w-40 bg-white rounded-md shadow-lg border border-gray-200 py-1 z-50"
+          style={{ 
+            position: 'absolute',
+            zIndex: 50,
+          }}
+          onClick={(e) => e.stopPropagation()}
+        >
           <button
             onClick={handleDelete}
             className="w-full text-left px-4 py-2 text-sm text-gray-700"
+            type="button"
           >
-            Delete
+            Delete Photo
           </button>
           <button
             onClick={handleReshare}
             className="w-full text-left px-4 py-2 text-sm text-gray-700"
+            type="button"
           >
             Reshare
           </button>

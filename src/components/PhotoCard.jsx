@@ -77,15 +77,15 @@ const PhotoCard = memo(({
   return (
     <div
       className={cn(
-        "bg-white rounded-[10px] border border-gray-200 overflow-hidden w-full",
+        "bg-white rounded-[10px] border border-gray-200 w-full",
         className
       )}
-      style={{ boxShadow: "0 1px 2px 0 rgba(0, 0, 0, 0.05)" }}
+      style={{ boxShadow: "0 1px 2px 0 rgba(0, 0, 0, 0.05)", overflow: 'visible' }}
     >
       {/* Image Container - Fixed height, top corners only (merges with white card) */}
       <div 
-        className="relative w-full bg-gray-100 overflow-hidden rounded-t-[10px]"
-        style={{ height: "180px" }}
+        className="relative w-full bg-gray-100 rounded-t-[10px]"
+        style={{ height: "180px", overflow: "hidden" }}
       >
         {imageUrl ? (
           <img
@@ -160,7 +160,7 @@ const PhotoCard = memo(({
       </div>
 
       {/* Compact Footer - 40-50px height max */}
-      <div className="px-2.5 py-2 h-[48px] flex items-center justify-between relative">
+      <div className="px-2.5 py-2 h-[48px] flex items-center justify-between relative" style={{ overflow: 'visible' }}>
         {/* Left: Filename and Size in flex column */}
         <div className="flex-1 min-w-0 pr-2">
           <h3 className="font-medium text-sm text-gray-900 truncate leading-tight">
@@ -172,7 +172,7 @@ const PhotoCard = memo(({
         </div>
 
         {/* Right: Actions (Checkbox, Menu, or Retry) */}
-        <div className="flex-shrink-0 flex items-center gap-2">
+        <div className="flex-shrink-0 flex items-center gap-2 relative" style={{ overflow: 'visible' }}>
           {/* Checkbox for Select Mode */}
           {isSelectMode && (
             <input
