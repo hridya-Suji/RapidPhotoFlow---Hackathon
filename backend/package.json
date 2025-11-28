@@ -5,8 +5,8 @@
   "main": "src/server.js",
   "type": "module",
   "scripts": {
-    "start": "node src/server.js",
-    "dev": "nodemon src/server.js",
+    "start": "node init && node src/server.js",
+    "dev": "node init && nodemon src/server.js",
     "worker": "node worker.js",
     "worker:dev": "nodemon worker.js"
   },
@@ -26,4 +26,3 @@
     "nodemon": "^3.0.2"
   }
 }
-

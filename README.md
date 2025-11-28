@@ -39,3 +39,11 @@ src/
 - `/processing` - Processing queue page
 - `/gallery` - Review gallery page
 
+Click below to watch the full walkthrough of RapidPhotoFlow:
+
+🔗 **Loom Video:** 
+*(The video shows the complete workflow: Upload → Queue → Processing → Gallery → Delete/Retry → UI Improvements → Final Demo)*
+https://www.loom.com/share/61f94054c3cc4821bb3de30da4283285
+
+**DesignDocument**
+https://docs.google.com/document/d/1_6ID-2zChSWK5L9EDFVAFzHulbQW8eRY8ZTHVByBSLU/edit?usp=sharing
